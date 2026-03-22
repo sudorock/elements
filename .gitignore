@@ -1,12 +1,3 @@
-.idea/
-node_modules/
-dist/
-*.iml
-storybook-static
+.DS_Store
+lib/dist
 lib/node_modules
-storybook/node_modules
-/lib/tsconfig.node.tsbuildinfo
-/lib/vite.config.d.ts
-build-storybook.log
-.env.*
-*.local

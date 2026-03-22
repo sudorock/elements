@@ -1,4 +1,4 @@
-import { Skeleton } from '@elements/components/skeleton';
+import { Skeleton } from './skeleton';
 import type { ComponentProps, ComponentType, ReactNode } from 'react';
 import { memo, Suspense } from 'react';
 

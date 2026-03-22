@@ -1,4 +1,4 @@
-import { cx } from '@elements/utils';
+import { cx } from '../utils';
 
 interface ProgressBarProps {
   total: number;

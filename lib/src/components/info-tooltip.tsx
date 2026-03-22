@@ -6,7 +6,7 @@ import {
   Root as TooltipRoot,
   Trigger as TooltipTrigger,
 } from '@radix-ui/react-tooltip';
-import { QuestionMarkCircleMiniSolid } from '@elements/icons';
+import { QuestionMarkCircleMiniSolid } from '../icons';
 import type { ReactNode } from 'react';
 
 export const InfoTooltip = ({ text }: { text: string }) => {

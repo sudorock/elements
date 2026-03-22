@@ -1,13 +1,13 @@
-import { Button } from '@elements/components/button';
+import { Button } from './button';
 import RichTextArea, {
   PlainTextExtensions,
   type RichTextAreaHandle,
   RichTextExtensions,
   type RichTextOutput,
-} from '@elements/components/rich-text-area';
+} from './rich-text-area';
 import { type FormEventHandler, type Ref, useCallback, useMemo, useState } from 'react';
-import { cva } from '@elements/utils/style';
-import { ExclamationCircleMiniSolid } from '@elements/icons';
+import { cva } from '../utils/style';
+import { ExclamationCircleMiniSolid } from '../icons';
 
 interface TextAreaEditorProps {
   content: string;

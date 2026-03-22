@@ -4,16 +4,15 @@ import {
   RawDropdownPanel,
   RawDropdownSeparator,
   RawDropdownTrigger,
-} from '@elements/components/raw-dropdown';
-import { cx } from '@elements/utils';
+} from './raw-dropdown';
+import { cx } from '../utils';
 import type { ComponentType, ReactNode } from 'react';
-import type { ButtonKind } from '@elements/components/button';
-import { Link } from '@elements/components/link';
+import type { ButtonKind } from './button';
 
 export interface ItemType {
   type: 'link' | 'button' | 'separator';
   text: string;
-  kind: ButtonKind;
+  kind?: ButtonKind;
   key: string;
   href?: string;
   openNewTab?: boolean;
@@ -23,7 +22,7 @@ export interface ItemType {
   onClick?: () => void;
 }
 
-export const Item = ({ text, href, Icon, onClick, kind = 'primary' }: ItemType) => {
+export const Item = ({ text, href, Icon, onClick, kind = 'primary', openNewTab }: ItemType) => {
   const body = (
     <>
       {Icon && (
@@ -44,14 +43,15 @@ export const Item = ({ text, href, Icon, onClick, kind = 'primary' }: ItemType) 
   return (
     <RawDropdownItem>
       {href ? (
-        <Link
+        <a
           className={
             'flex w-full items-center justify-items-start gap-2 rounded-md bg-white px-4 py-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 hover:underline remove-default-focus'
           }
           href={href}
-          rel={'noreferrer'}>
+          rel={openNewTab ? 'noreferrer' : undefined}
+          target={openNewTab ? '_blank' : undefined}>
           {body}
-        </Link>
+        </a>
       ) : (
         <button
           className={

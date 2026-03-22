@@ -1,5 +1,4 @@
-import { Editor, EditorContent, useEditor } from '@tiptap/react';
-import isNil from 'lodash/isNil';
+import { EditorContent, useEditor, type Editor } from '@tiptap/react';
 import type { ForwardRefRenderFunction, MutableRefObject } from 'react';
 import { forwardRef, memo, useEffect, useImperativeHandle, useRef } from 'react';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -66,7 +65,7 @@ const RichTextArea_: ForwardRefRenderFunction<RichTextAreaHandle, RichTextAreaPr
   },
   ref
 ) => {
-  const content = isNil(initialContent) ? '' : initialContent;
+  const content = initialContent ?? '';
   const editor = useEditor({
     editable: editable,
     extensions: [
@@ -111,7 +110,7 @@ const RichTextArea_: ForwardRefRenderFunction<RichTextAreaHandle, RichTextAreaPr
   }, [editor]);
 
   useEffect(() => {
-    editor?.commands.setContent(content, false);
+    editor?.commands.setContent(content, { emitUpdate: false });
   }, [editor, content]);
 
   useEffect(() => {

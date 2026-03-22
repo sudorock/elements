@@ -1,5 +1,5 @@
-import type { VariantProps } from '@elements/utils/style';
-import { cva } from '@elements/utils/style';
+import type { VariantProps } from '../utils/style';
+import { cva } from '../utils/style';
 import { memo, useCallback } from 'react';
 
 const containerVariant = cva('flex overflow-x-scroll', {

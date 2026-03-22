@@ -1,5 +1,5 @@
-import type { VariantProps } from '@elements/utils/style';
-import { cva } from '@elements/utils/style';
+import type { VariantProps } from '../utils/style';
+import { cva } from '../utils/style';
 
 const variant = cva('animate-spin', {
   variants: {
@@ -11,10 +11,10 @@ const variant = cva('animate-spin', {
       primary: 'text-blue-500',
       secondary: 'text-gray-400',
     },
-    defaultVariants: {
-      kind: 'primary',
-      size: 'sm',
-    },
+  },
+  defaultVariants: {
+    kind: 'primary',
+    size: 'sm',
   },
 });
 

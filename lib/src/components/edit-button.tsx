@@ -1,5 +1,5 @@
-import { cx } from '@elements/utils';
-import { PencilOutline } from '@elements/icons';
+import { cx } from '../utils';
+import { PencilOutline } from '../icons';
 
 export const EditButton = ({ canEdit, onEdit, className }: any) => {
   return canEdit ? (

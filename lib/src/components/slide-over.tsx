@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import { Button } from '@elements/components/button';
-import { XMarkSolid } from '@elements/icons';
+import { Button } from './button';
+import { XMarkSolid } from '../icons';
 
 export const SlideOverTitle = memo(({ title }: { title: string }) => {
   return <h1 className={'font-medium leading-6 text-gray-600'}>{title}</h1>;

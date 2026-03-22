@@ -3,11 +3,9 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { RefObject } from 'react';
 import { useCallback, useEffect } from 'react';
-import { cx as clsx } from '@elements/utils/style';
+import { cx as clsx } from './utils/style';
 import { twMerge } from 'tailwind-merge';
-import type { ClassValue } from '@elements/utils/style';
-import type { Ident } from '@elements/types';
-import { EntityType } from '@elements/types';
+import type { ClassValue } from './utils/style';
 import { customAlphabet } from 'nanoid';
 import { encodeURL } from 'js-base64';
 
@@ -69,11 +67,6 @@ export function isBefore(ts1: number, ts2: number, unit: ManipulateType) {
   return date.isBefore(ts2, unit);
 }
 
-// TODO spid
-export function ref(lookupRef: Ident) {
-  return JSON.stringify(lookupRef);
-}
-
 export function cx(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -89,6 +82,7 @@ export function keep<T>(a: T[], fn: (e: T) => any) {
 }
 
 export const emptyObject = {};
+export const emptyArray = [];
 
 export const scrollToTop = ({ behavior = 'smooth' }: { behavior: ScrollBehavior }) => {
   window.scrollTo({ top: 0, behavior });
@@ -97,17 +91,6 @@ export const scrollToTop = ({ behavior = 'smooth' }: { behavior: ScrollBehavior 
 export const guid = () => {
   return nanoid();
 };
-
-export function makeLink(type: EntityType, entityId: string) {
-  switch (type) {
-    case EntityType.Action:
-      return `/action/${entityId}`;
-    case EntityType.Issue:
-      return `/issue/${entityId}`;
-    case EntityType.User:
-      return `/profile/${entityId}#tab=actions`;
-  }
-}
 
 export function base64EncodeURL(str: string) {
   return encodeURL(str);

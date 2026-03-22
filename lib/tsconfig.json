@@ -2,26 +2,16 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "src",
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "paths": {
-      "@elements/*": [
-        "./*"
-      ]
-    },
     "resolveJsonModule": true,
     "rootDir": "src",
     "skipLibCheck": true,
@@ -29,19 +19,8 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "verbatimModuleSyntax": true,
-    "types": [
-      "vite/client",
-      "google.maps",
-      "vite-plugin-svgr/client",
-      "gtag.js"
-    ]
+    "types": ["vite/client"]
   },
-  "include": [
-    "src"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

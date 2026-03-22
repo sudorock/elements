@@ -1,16 +1,53 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@layer utilities {
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/container-queries";
+@plugin "@tailwindcss/aspect-ratio";
+@plugin "@headlessui/tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-react-aria-components";
+@plugin "tailwindcss-animate";
+
+@theme {
+    /* Z-Index utilities */
+    --z-index-navbar: 100;
+    --z-index-overlay: 101;
+    --z-index-slideover: 102;
+    --z-index-modal: 103;
+    --z-index-dropdown: 104;
+    --z-index-popover: 105;
+    --z-index-tooltip: 106;
+
+    /* Font families */
+    --font-sans: "Inter var", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-logo: "Gugi", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@utility hide-scrollbar {
     /* Chrome, Safari and Opera */
-    .hide-scrollbar::-webkit-scrollbar {
+    &::-webkit-scrollbar {
         display: none;
     }
 
-    .hide-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+@utility default-focus {
+    &:focus-visible {
+        ring: 2px var(--color-blue-400);
+        ring-offset: 2px;
+        outline: none;
+    }
+}
+
+@utility remove-default-focus {
+    &:focus,
+    &:focus-visible {
+        ring: 0;
+        ring-offset: 0;
+        outline: none;
+        border: none;
     }
 }
 
@@ -20,12 +57,4 @@
     float: left;
     height: 0;
     pointer-events: none;
-}
-
-.default-focus {
-    @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none focus-visible:ring-blue-400
-}
-
-.remove-default-focus {
-    @apply focus:ring-0 focus:ring-offset-0 focus:outline-none focus:border-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none focus-visible:border-none !important
 }

@@ -1,4 +1,4 @@
-import { XMark } from '@elements/icons';
+import { XMark } from '../icons';
 import { Dialog } from '@headlessui/react';
 import type { ReactNode } from 'react';
 import { useCallback } from 'react';

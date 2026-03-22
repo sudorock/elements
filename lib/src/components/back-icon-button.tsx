@@ -1,6 +1,6 @@
-import { ChevronLeftMini } from '@elements/icons';
-import { cva } from '@elements/utils/style';
-import React from 'react';
+import { ChevronLeftMini } from '../icons';
+import { cva } from '../utils/style';
+import type { ComponentPropsWithoutRef } from 'react';
 
 const container = cva(
   'flex justify-center w-max cursor-pointer items-center rounded-full bg-white border border-gray-300 hover:translate-y-[0.5px] hover:shadow-none transition-all ease-out',
@@ -21,7 +21,7 @@ const icon = cva('text-gray-700', {
   },
 });
 
-interface BackButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+interface BackButtonProps extends ComponentPropsWithoutRef<'button'> {
   size: 'xs';
 }
 

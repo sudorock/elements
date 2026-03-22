@@ -1,93 +1,90 @@
-import { formatCount } from '@elements/utils';
-import { cva } from '@elements/utils/style';
-import type { ComponentType, ForwardedRef, HTMLProps } from 'react';
-import { type ComponentProps, forwardRef, memo, type MouseEvent, useCallback } from 'react';
-import { Link } from '@elements/components/link';
+import { formatCount } from '../utils';
+import { cva } from '../utils/style';
+import type {
+  AnchorHTMLAttributes,
+  ComponentType,
+  ForwardedRef,
+  HTMLProps,
+  MouseEvent,
+} from 'react';
+import { forwardRef, memo, useCallback } from 'react';
 
 // TODO Refactor to have proper shadows and padding
-const containerVariant = cva('relative flex items-center justify-center rounded-md default-focus', {
-  variants: {
-    kind: {
-      primary: 'bg-blue-600 text-white',
-      secondary: 'bg-white text-blue-700 border border-blue-500',
-      tertiary: 'bg-white text-gray-700 border border-gray-300',
-      success: 'bg-green-600 text-white',
-      danger: 'bg-red-600 text-white',
-      warning: 'text-amber-700 border border-amber-500 bg-amber-50',
-      'danger-outline': 'bg-white text-red-700 border border-red-500',
+const containerVariant = cva(
+  'relative flex items-center justify-center rounded-md default-focus cursor-pointer',
+  {
+    variants: {
+      kind: {
+        primary: 'bg-blue-600 text-white',
+        secondary: 'bg-white text-blue-700 border border-blue-500',
+        tertiary: 'bg-white text-gray-700 border border-gray-300',
+        success: 'bg-green-600 text-white',
+        danger: 'bg-red-600 text-white',
+        warning: 'text-amber-700 border border-amber-500 bg-amber-50',
+        'danger-outline': 'bg-white text-red-700 border border-red-500',
+      },
+      size: {
+        xxs: 'text-xs gap-1.5 px-1.5 h-[28px] font-normal',
+        xs: 'text-xs gap-1.5 px-2.5 h-[32px] font-medium',
+        sm: 'text-sm gap-2.5 px-3 h-[36px] font-medium',
+        md: 'text-base gap-3 px-4 h-[40px] font-medium',
+      },
+      disabled: {
+        false: 'ease-out hover:translate-y-[0.5px] hover:shadow-none transition-all',
+        true: 'cursor-default shadow-none',
+      },
+      waiting: {
+        false: '',
+        true: 'animate-pulse cursor-default',
+      },
+      shadow: {
+        none: 'shadow-none',
+        small: 'shadow-sm',
+        base: 'shadow',
+        medium: 'shadow-md',
+      },
+      clicked: { true: '' },
+      hasIcon: { true: '' },
+      hasText: { true: '' },
+      hasSecondaryIcon: { true: '' },
     },
-    size: {
-      xxs: 'text-xs gap-1.5 px-1.5 h-[28px] font-normal',
-      xs: 'text-xs gap-1.5 px-2.5 h-[32px] font-medium',
-      sm: 'text-sm gap-2.5 px-3 h-[36px] font-medium',
-      md: 'text-base gap-3 px-4 h-[40px] font-medium',
+    defaultVariants: {
+      kind: 'primary',
+      size: 'sm',
+      disabled: false,
     },
-    disabled: {
-      false: 'ease-out hover:translate-y-[0.5px] hover:shadow-none transition-all',
-      true: 'cursor-default shadow-none',
-    },
-    waiting: {
-      false: '',
-      true: 'animate-pulse cursor-default',
-    },
-    shadow: {
-      none: 'shadow-none',
-      small: 'shadow-sm',
-      base: 'shadow',
-      medium: 'shadow-md',
-    },
-    clicked: { true: '' },
-    hasIcon: { true: '' },
-    hasText: { true: '' },
-    hasSecondaryIcon: { true: '' },
-  },
-  defaultVariants: {
-    kind: 'primary',
-    size: 'sm',
-    disabled: false,
-  },
-  compoundVariants: [
-    // hasIcon padding
-    { size: 'xxs', hasIcon: true, class: 'pl-1.5 pr-1.5' },
-    { size: 'xs', hasIcon: true, class: 'pl-2 pr-2.5' },
-    { size: 'sm', hasIcon: true, class: 'pl-2.5 pr-3' },
-    { size: 'md', hasIcon: true, class: 'pl-3 pr-4' },
-
-    // hasText padding
-    { size: 'xs', hasIcon: true, hasText: false, class: 'px-2.5' },
-    { size: 'sm', hasIcon: true, hasText: false, class: 'px-3' },
-    { size: 'md', hasIcon: true, hasText: false, class: 'px-4' },
-
-    // hasSecondaryIcon padding
-    { size: 'xs', hasSecondaryIcon: true, class: 'pr-2 pl-2.5' },
-    { size: 'sm', hasSecondaryIcon: true, class: 'pr-2.5 pl-3' },
-    { size: 'md', hasSecondaryIcon: true, class: 'pr-3 pl-4' },
-
-    // clicked
-    {
-      kind: 'tertiary',
-      clicked: true,
-      class: 'bg-gray-50 translate-y-[0.5px] shadow-none',
-    },
-
-    // shadow
-    { size: ['xs', 'xxs'], kind: ['primary', 'danger', 'success'], class: 'shadow' },
-    {
-      size: ['xs', 'xxs'],
-      kind: ['secondary', 'danger-outline', 'tertiary', 'warning'],
-      class: 'shadow-sm',
-    },
-    { size: ['sm', 'md'], kind: ['primary', 'danger', 'success'], class: 'shadow-md' },
-    {
-      size: ['sm', 'md'],
-      kind: ['secondary', 'danger-outline', 'tertiary', 'warning'],
-      class: 'shadow',
-    },
-
-    // disabled
-    { disabled: true, kind: 'primary', class: 'bg-blue-300 text-white' },
-  ],
-});
+    compoundVariants: [
+      { size: 'xxs', hasIcon: true, class: 'pl-1.5 pr-1.5' },
+      { size: 'xs', hasIcon: true, class: 'pl-2 pr-2.5' },
+      { size: 'sm', hasIcon: true, class: 'pl-2.5 pr-3' },
+      { size: 'md', hasIcon: true, class: 'pl-3 pr-4' },
+      { size: 'xs', hasIcon: true, hasText: false, class: 'px-2.5' },
+      { size: 'sm', hasIcon: true, hasText: false, class: 'px-3' },
+      { size: 'md', hasIcon: true, hasText: false, class: 'px-4' },
+      { size: 'xs', hasSecondaryIcon: true, class: 'pr-2 pl-2.5' },
+      { size: 'sm', hasSecondaryIcon: true, class: 'pr-2.5 pl-3' },
+      { size: 'md', hasSecondaryIcon: true, class: 'pr-3 pl-4' },
+      {
+        kind: 'tertiary',
+        clicked: true,
+        class: 'bg-gray-50 translate-y-[0.5px] shadow-none',
+      },
+      { size: ['xs', 'xxs'], kind: ['primary', 'danger', 'success'], class: 'shadow' },
+      {
+        size: ['xs', 'xxs'],
+        kind: ['secondary', 'danger-outline', 'tertiary', 'warning'],
+        class: 'shadow-sm',
+      },
+      { size: ['sm', 'md'], kind: ['primary', 'danger', 'success'], class: 'shadow-md' },
+      {
+        size: ['sm', 'md'],
+        kind: ['secondary', 'danger-outline', 'tertiary', 'warning'],
+        class: 'shadow',
+      },
+      { disabled: true, kind: 'primary', class: 'bg-blue-300 text-white' },
+    ],
+  }
+);
 
 const iconVariant = cva('', {
   variants: {
@@ -174,7 +171,6 @@ export interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'size' |
   kind: ButtonKind;
   disabled?: boolean;
   onClick?: any;
-  'data-event-id'?: string;
   iconOnly?: boolean;
   waiting?: boolean;
 }
@@ -202,10 +198,12 @@ const Button_ = forwardRef(
     ref: ForwardedRef<HTMLButtonElement>
   ) => {
     const onClickMemo = useCallback(
-      (e: any) => {
-        onClick && !disabled && onClick(e);
+      (event: MouseEvent<HTMLButtonElement>) => {
+        if (!disabled) {
+          onClick?.(event);
+        }
       },
-      [onClick, disabled]
+      [disabled, onClick]
     );
 
     return (
@@ -222,7 +220,6 @@ const Button_ = forwardRef(
           className: containerClassName,
           waiting,
         })}
-        data-event-category={'button'}
         disabled={!!disabled || !!waiting}
         type={type === 'submit' ? 'submit' : 'button'}
         onClick={onClickMemo}>
@@ -241,7 +238,8 @@ const Button_ = forwardRef(
 
 export const Button = memo(Button_);
 
-export interface LinkButtonProps extends ComponentProps<typeof Link> {
+export interface LinkButtonProps
+  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'ref' | 'onClick'> {
   size: ButtonSize;
   value?: string;
   count?: number;
@@ -253,7 +251,7 @@ export interface LinkButtonProps extends ComponentProps<typeof Link> {
   containerClassName?: string;
   kind: ButtonKind;
   disabled?: boolean;
-  onClick?: any;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
   iconOnly?: boolean;
   waiting?: boolean;
 }
@@ -274,29 +272,41 @@ const LinkButton_ = forwardRef(
       clicked,
       onClick,
       iconOnly,
+      waiting = false,
+      href,
       ...props
     }: LinkButtonProps,
     ref: ForwardedRef<HTMLAnchorElement>
   ) => {
+    const isDisabled = !!disabled || !!waiting;
     const onClickMemo = useCallback(
-      (e: MouseEvent) => {
-        onClick && !disabled && onClick(e);
+      (event: MouseEvent<HTMLAnchorElement>) => {
+        if (isDisabled) {
+          event.preventDefault();
+          return;
+        }
+
+        onClick?.(event);
       },
-      [onClick, disabled]
+      [isDisabled, onClick]
     );
 
     return (
-      <Link
+      <a
         {...props}
         ref={ref}
+        aria-disabled={isDisabled || undefined}
         className={containerVariant({
           size,
           kind,
-          disabled: !!disabled,
+          disabled: isDisabled,
           hasIcon: !!Icon,
           clicked: !!clicked,
+          hasText: !!value,
           className: containerClassName,
+          waiting,
         })}
+        href={isDisabled ? undefined : href}
         onClick={onClickMemo}>
         {!!Icon && <Icon className={iconVariant({ size, kind, className: iconClassName })} />}
         {!value || iconOnly ? null : <span>{value}</span>}
@@ -306,13 +316,9 @@ const LinkButton_ = forwardRef(
           />
         )}
         {!!count && <span className={countVariant({ size, kind })}>{formatCount(count)}</span>}
-      </Link>
+      </a>
     );
   }
 );
 
 export const LinkButton = memo(LinkButton_);
-/*
-TODO
-Too much repetition Abstract the bodies of Button and LinkButton to be the same
- */
